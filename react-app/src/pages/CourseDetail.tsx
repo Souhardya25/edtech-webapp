@@ -14,6 +14,30 @@ export default function CourseDetail() {
     )
   }
 
+  async function handleEnroll() {
+    try {
+      const c = course!
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ course: { id: c.id, title: c.title, price: c.price } }),
+      })
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error(err.error || `Failed to create checkout session (${res.status})`)
+      }
+      const data = await res.json()
+      if (data?.url) {
+        window.location.href = data.url as string
+      } else {
+        throw new Error('Invalid response from server')
+      }
+    } catch (e: any) {
+      alert(e?.message || 'Something went wrong starting checkout')
+      console.error(e)
+    }
+  }
+
   return (
     <div className="pt-20">
       <section className="py-10 bg-gradient-to-br from-brand-500 to-purple-500 text-white">
@@ -39,7 +63,7 @@ export default function CourseDetail() {
               <div className="text-sm bg-green-100 text-green-700 px-2 py-1 rounded">50% off</div>
             </div>
             <div className="mt-4 grid gap-2">
-              <button className="btn btn-primary">Enroll Now</button>
+              <button className="btn btn-primary" onClick={handleEnroll}>Enroll Now</button>
               <Link to="/dashboard" className="btn btn-outline text-center">Go to Dashboard</Link>
             </div>
             <ul className="mt-4 space-y-2 text-sm text-gray-700">

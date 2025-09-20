@@ -210,7 +210,7 @@ function loadCourses(filter) {
                     <div class="course-price">${course.price}</div>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-                    <button class="btn-outline" onclick="window.location.href='course-detail.html'">View Details</button>
+                    <button class="btn-outline" onclick="window.location.href='course-detail.html?id=${course.id}'">View Details</button>
                     <button class="btn-primary" onclick="enrollCourse(${course.id})">Enroll</button>
                 </div>
             </div>
@@ -651,7 +651,7 @@ function displaySearchResults(filteredCourses) {
                     <div class="course-price">${course.price}</div>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-                    <button class="btn-outline" onclick="window.location.href='course-detail.html'">View Details</button>
+                    <button class="btn-outline" onclick="window.location.href='course-detail.html?id=${course.id}'">View Details</button>
                     <button class="btn-primary" onclick="enrollCourse(${course.id})">Enroll</button>
                 </div>
             </div>

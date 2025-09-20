@@ -6,6 +6,8 @@ import App from './App'
 import Home from './pages/Home'
 import CourseDetail from './pages/CourseDetail'
 import Dashboard from './pages/Dashboard'
+import Success from './pages/Success'
+import Cancel from './pages/Cancel'
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,8 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'course/:id', element: <CourseDetail /> },
       { path: 'dashboard', element: <Dashboard /> },
+      { path: 'success', element: <Success /> },
+      { path: 'cancel', element: <Cancel /> },
     ],
   },
 ])

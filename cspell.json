@@ -11,7 +11,8 @@
     "jsx",
     "tsx",
     "Tailwind",
-    "nums"
+    "nums",
+    "edtech"
   ],
   "ignorePaths": [
     "node_modules",

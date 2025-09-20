@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeCourseDetailPage() {
+    // Load course from query string and apply to page
+    try { loadCourseFromQuery(); } catch (e) { console.warn('Course apply failed', e); }
+
     // Initialize tabs
     initializeTabs();
     
@@ -89,6 +92,15 @@ function initializeEnrollButton() {
                 showNotification('Please log in to enroll in this course', 'info');
             } else {
                 handleEnrollment();
+                // Persist selected course to enrolledCourses based on current page course
+                const course = getCurrentCourse();
+                if (course) {
+                    const enrolled = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+                    if (!enrolled.find(e => e.id === course.id)) {
+                        enrolled.push({ id: course.id, title: course.title, category: course.category, progress: 0, price: course.price, icon: course.icon });
+                        localStorage.setItem('enrolledCourses', JSON.stringify(enrolled));
+                    }
+                }
             }
         });
     }
@@ -441,6 +453,55 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeSocialSharing();
     }, 1000);
 });
+
+// -----------------
+// Dynamic course API
+// -----------------
+const courseCatalog = [
+    { id: 1, title: "Complete Web Development Bootcamp", category: "programming", description: "Learn HTML, CSS, JavaScript, React, Node.js and more in this comprehensive course.", price: "$99", rating: 4.8, students: "12,450", icon: "fas fa-code" },
+    { id: 2, title: "UI/UX Design Masterclass", category: "design", description: "Master the art of user interface and user experience design with industry tools.", price: "$79", rating: 4.9, students: "8,320", icon: "fas fa-palette" },
+    { id: 3, title: "Digital Marketing Strategy", category: "marketing", description: "Learn to create effective digital marketing campaigns that drive results.", price: "$89", rating: 4.7, students: "6,890", icon: "fas fa-bullhorn" },
+    { id: 4, title: "Python for Data Science", category: "programming", description: "Master Python programming for data analysis, visualization, and machine learning.", price: "$109", rating: 4.8, students: "9,560", icon: "fab fa-python" },
+    { id: 5, title: "Business Strategy & Leadership", category: "business", description: "Develop essential business skills and leadership qualities for career growth.", price: "$95", rating: 4.6, students: "5,430", icon: "fas fa-chart-line" },
+    { id: 6, title: "Graphic Design Fundamentals", category: "design", description: "Learn the principles of graphic design using Adobe Creative Suite.", price: "$69", rating: 4.7, students: "7,210", icon: "fas fa-paint-brush" },
+    { id: 7, title: "Mobile App Development", category: "programming", description: "Build native mobile apps for iOS and Android using React Native.", price: "$119", rating: 4.9, students: "4,680", icon: "fas fa-mobile-alt" },
+    { id: 8, title: "Social Media Marketing", category: "marketing", description: "Master social media platforms to grow your brand and engage audiences.", price: "$59", rating: 4.5, students: "11,230", icon: "fas fa-share-alt" }
+];
+
+function getCurrentCourseId() {
+    const params = new URLSearchParams(window.location.search);
+    const id = Number(params.get('id'));
+    return Number.isFinite(id) && id > 0 ? id : 1;
+}
+
+function getCurrentCourse() {
+    const id = getCurrentCourseId();
+    return courseCatalog.find(c => c.id === id);
+}
+
+function loadCourseFromQuery() {
+    const course = getCurrentCourse();
+    if (!course) return;
+
+    // Title & description
+    const titleEl = document.querySelector('.course-title');
+    const subtitleEl = document.querySelector('.course-subtitle');
+    if (titleEl) titleEl.textContent = course.title;
+    if (subtitleEl) subtitleEl.textContent = course.description;
+
+    // Price and rating
+    const priceEl = document.querySelector('.current-price');
+    if (priceEl) priceEl.textContent = course.price;
+
+    const ratingMeta = document.querySelector('.course-meta .meta-item span');
+    if (ratingMeta) ratingMeta.textContent = `${course.rating} (${course.students} reviews)`;
+
+    // Sidebar icon if present
+    const sidebarIcon = document.querySelector('.course-image i, .preview-video i');
+    if (sidebarIcon && course.icon) {
+        sidebarIcon.className = course.icon;
+    }
+}
 
 // Add CSS for additional features
 const additionalStyles = document.createElement('style');
