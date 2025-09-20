@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "Vercel",
+    "vercel",
+    "Supabase",
+    "Bootcamp",
+    "EduLearn",
+    "jsx",
+    "tsx",
+    "Tailwind",
+    "nums"
+  ],
+  "ignorePaths": [
+    "node_modules",
+    "react-app/node_modules",
+    "dist",
+    "react-app/dist"
+  ]
+}
