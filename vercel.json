@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "name": "edtech-website",
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "course-detail.html", "use": "@vercel/static" },
+    { "src": "dashboard.html", "use": "@vercel/static" },
+    { "src": "styles/**", "use": "@vercel/static" },
+    { "src": "js/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/course-detail", "dest": "/course-detail.html" },
+    { "src": "/dashboard", "dest": "/dashboard.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

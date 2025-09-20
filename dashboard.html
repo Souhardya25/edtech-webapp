@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - EduLearn</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo" onclick="window.location.href='index.html'" style="cursor:pointer;">
+                <i class="fas fa-graduation-cap"></i>
+                <span>EduLearn</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#courses" class="nav-link">Courses</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-auth">
+                <button class="btn-secondary" onclick="logout()">Logout</button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="user-greeting">
+                    <h1>Welcome back, <span id="dashboardUser">Student</span> 👋</h1>
+                    <p>Track your learning progress and continue your courses.</p>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="btn-primary" onclick="window.location.href='index.html#courses'">
+                        <i class="fas fa-plus"></i>
+                        Discover Courses
+                    </button>
+                </div>
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-book-open"></i></div>
+                    <div>
+                        <div class="stat-number" id="statEnrolled">0</div>
+                        <div class="stat-label">Enrolled Courses</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                    <div>
+                        <div class="stat-number" id="statAvgProgress">0%</div>
+                        <div class="stat-label">Average Progress</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                    <div>
+                        <div class="stat-number" id="statCompleted">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="enrolled-section">
+                    <div class="section-title">
+                        <h2>Your Courses</h2>
+                        <div class="filters">
+                            <button class="filter active" data-filter="all">All</button>
+                            <button class="filter" data-filter="in_progress">In Progress</button>
+                            <button class="filter" data-filter="completed">Completed</button>
+                        </div>
+                    </div>
+                    <div id="enrolledGrid" class="enrolled-grid">
+                        <!-- Enrolled courses will render here -->
+                    </div>
+                </div>
+
+                <aside class="sidebar">
+                    <div class="widget">
+                        <h3>Quick Links</h3>
+                        <ul class="quick-links">
+                            <li><a href="index.html#courses"><i class="fas fa-compass"></i> Browse Courses</a></li>
+                            <li><a href="course-detail.html"><i class="fas fa-laptop-code"></i> Sample Course</a></li>
+                            <li><a href="#" onclick="clearProgress()"><i class="fas fa-eraser"></i> Clear Progress</a></li>
+                        </ul>
+                    </div>
+                    <div class="widget">
+                        <h3>Tips</h3>
+                        <ul class="tips">
+                            <li>Set learning goals for the week</li>
+                            <li>Practice with real projects</li>
+                            <li>Review notes after each section</li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 EduLearn. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
